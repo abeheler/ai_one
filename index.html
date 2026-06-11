@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ann Beheler | Director of Innovation @ CORD</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        innovation: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth fade-in and scale-up animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-900 min-h-screen text-slate-100 flex flex-col justify-between font-sans antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- Header/Navigation Bar -->
+    <header class="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-10">
+        <div class="flex items-center space-x-3 group">
+            <div class="h-10 w-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-lightbulb text-white text-lg"></i>
+            </div>
+            <div>
+                <span class="text-white font-extrabold text-xl tracking-tight">CORD</span>
+                <span class="text-cyan-400 text-xs block -mt-1 font-semibold tracking-widest uppercase">Innovation</span>
+            </div>
+        </div>
+        <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+            <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+            <a href="#initiatives" class="hover:text-cyan-400 transition-colors">Initiatives</a>
+            <a href="#connect" class="hover:text-cyan-400 transition-colors">Connect</a>
+            <a href="accounting.html" class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors flex items-center gap-1">
+                Accounting Dept <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Executive Profile Layout -->
+    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 py-12 relative overflow-hidden">
+        <!-- Abstract glowing background blobs for visual depth -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="w-full max-w-4xl glass-panel rounded-3xl border border-white/10 shadow-2xl shadow-black/40 text-slate-800 p-8 md:p-12 animate-fade-in relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left side: Visual Identity Avatar -->
+                <div class="lg:col-span-5 flex flex-col items-center text-center">
+                    <div class="relative group">
+                        <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative w-48 h-48 rounded-full bg-slate-900 border-4 border-white flex items-center justify-center text-slate-100 shadow-2xl">
+                            <!-- Initials Avatar representing professional branding -->
+                            <span class="text-6xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-500">AB</span>
+                        </div>
+                    </div>
+                    
+                    <h2 class="mt-6 text-2xl font-bold text-slate-900">Ann Beheler</h2>
+                    <p class="text-sm font-semibold text-cyan-600 tracking-wider uppercase mt-1">Director of Innovation</p>
+                    <p class="text-slate-500 font-medium text-sm">CORD Executive Leadership</p>
+
+                    <div class="flex space-x-3 mt-6">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-cyan-500 hover:text-white text-slate-600 flex items-center justify-center transition-all duration-300 shadow-sm">
+                            <i class="fa-brands fa-linkedin-in text-base"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-cyan-500 hover:text-white text-slate-600 flex items-center justify-center transition-all duration-300 shadow-sm">
+                            <i class="fa-brands fa-twitter text-base"></i>
+                        </a>
+                        <a href="mailto:info@cord.org" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-cyan-500 hover:text-white text-slate-600 flex items-center justify-center transition-all duration-300 shadow-sm">
+                            <i class="fa-regular fa-envelope text-base"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right side: Bio & Interactive Innovations Center -->
+                <div class="lg:col-span-7 flex flex-col justify-between h-full">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-cyan-50 text-cyan-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+                            <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                            <span>Driving Future Solutions</span>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            Pioneering collaborative development at CORD.
+                        </h3>
+                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
+                            As the Director of Innovation, Ann coordinates forward-thinking initiatives that integrate advanced technologies, workforce development, and corporate strategy. She bridges the gap between ground-breaking industry insights and accessible, systemic implementation.
+                        </p>
+                    </div>
+
+                    <!-- Interactive Action Center (JavaScript Guided) -->
+                    <div class="mt-8 pt-8 border-t border-slate-100">
+                        <div id="interactive-portal">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Interactive Workspace Hub</p>
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button id="idea-trigger" class="flex-1 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold text-sm transition-all shadow-md flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-brain text-cyan-400"></i> Submit Innovation Pitch
+                                </button>
+                                <a href="accounting.html" class="flex-1 px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-sm text-center transition-all flex items-center justify-center gap-2 border border-slate-200">
+                                    <i class="fa-solid fa-receipt text-slate-500"></i> Accounting Portal
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Form Area (Hidden by Default, Revealed via JavaScript) -->
+                        <div id="interactive-form-container" class="hidden bg-slate-50 p-6 rounded-2xl border border-slate-200 mt-4 transition-all duration-300">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-bolt text-amber-500"></i> Quick Innovation Pitch
+                                </h4>
+                                <button id="close-form" class="text-slate-400 hover:text-slate-600 text-xs">
+                                    <i class="fa-solid fa-xmark"></i> Close
+                                </button>
+                            </div>
+                            <div class="space-y-3">
+                                <textarea id="pitch-text" placeholder="Describe your innovative idea or workforce synergy plan..." class="w-full p-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-800 resize-none h-20"></textarea>
+                                <button id="submit-pitch" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition-all shadow">
+                                    Send to Director Beheler
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Success Feedback Notice -->
+                        <div id="feedback-notice" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-800 text-sm flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>
+                            <div>
+                                <span class="font-bold">Pitch Submitted!</span> Thank you for your insight. Our innovation unit will evaluate this concept.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Responsive and Modern Footer -->
+    <footer class="w-full max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+        <div>
+            &copy; 2026 CORD Organization. All rights reserved. 
+        </div>
+        <div class="flex space-x-6">
+            <a href="#" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-slate-300 transition-colors">Contact Coordination</a>
+            <a href="accounting.html" class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">Accounting Dept</a>
+        </div>
+    </footer>
+
+    <!-- Embedded Interactive Scripting -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ideaTriggerBtn = document.getElementById('idea-trigger');
+            const closeFormBtn = document.getElementById('close-form');
+            const submitPitchBtn = document.getElementById('submit-pitch');
+            const formContainer = document.getElementById('interactive-form-container');
+            const feedbackNotice = document.getElementById('feedback-notice');
+            const pitchInput = document.getElementById('pitch-text');
+
+            // Opens interactive pitch formulation widget
+            ideaTriggerBtn.addEventListener('click', () => {
+                formContainer.classList.remove('hidden');
+                feedbackNotice.classList.add('hidden');
+                pitchInput.focus();
+                
+                // Smooth scroll context helper
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+
+            // Closes modal/drawer
+            closeFormBtn.addEventListener('click', () => {
+                formContainer.classList.add('hidden');
+            });
+
+            // Handles action submitting details dynamically without alerts
+            submitPitchBtn.addEventListener('click', () => {
+                const pitchText = pitchInput.value.trim();
+                
+                if (pitchText.length < 5) {
+                    pitchInput.classList.add('border-rose-500');
+                    pitchInput.setAttribute('placeholder', 'Please type a valid idea before sending.');
+                    setTimeout(() => {
+                        pitchInput.classList.remove('border-rose-500');
+                    }, 2000);
+                    return;
+                }
+
+                // Simulate secure API posting
+                submitPitchBtn.disabled = true;
+                submitPitchBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Conveying...';
+
+                setTimeout(() => {
+                    formContainer.classList.add('hidden');
+                    feedbackNotice.classList.remove('hidden');
+                    pitchInput.value = '';
+                    
+                    // Reset primary button state
+                    submitPitchBtn.disabled = false;
+                    submitPitchBtn.innerHTML = 'Send to Director Beheler';
+                }, 1200);
+            });
+        });
+    </script>
+</body>
+</html>
