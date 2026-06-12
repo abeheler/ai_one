@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BILT Model - Interactive Lesson Prompt Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc7fb',
+                            400: '#38a9f8',
+                            500: '#0e8ee9',
+                            600: '#0270c7',
+                            700: '#0359a1',
+                            800: '#074c85',
+                            900: '#0c406e',
+                            950: '#082949',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Custom scrollbar styling for preview container */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <!-- Navigation / Header Bar -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-wand-magic-sparkles text-lg animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                        BILT Prompt Generator
+                    </h1>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Pathways to Innovation Framework Tool</p>
+                </div>
+            </div>
+            
+            <!-- Dark / Light Theme Toggle -->
+            <div class="flex items-center space-x-3">
+                <a href="https://www.pathwaystoinnovation.org/the-bilt-model/" target="_blank" class="hidden md:flex items-center space-x-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors mr-2">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Official BILT Model Info</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-0.5"></i>
+                </a>
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all duration-200 border border-slate-200/50 dark:border-slate-700/50" aria-label="Toggle Theme">
+                    <i id="themeToggleIcon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Welcome Hero Info -->
+        <div class="mb-8 p-6 rounded-2xl bg-gradient-to-r from-brand-50/50 to-indigo-50/30 dark:from-slate-900/60 dark:to-indigo-950/20 border border-brand-100/50 dark:border-slate-800/80">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="max-w-3xl">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 dark:bg-brand-900/40 dark:text-brand-300 mb-2">
+                        BILT (Business & Industry Leadership Team)
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        Curriculum Prompt Engineer
+                    </h2>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        The Business & Industry Leadership Team (BILT) model, supported by the National Science Foundation, repositions local employers as co-leaders of educational programs rather than passive advisors. Use this prompt builder to generate structured instructional prompts targeting specific audiences.
+                    </p>
+                </div>
+                <div class="flex-shrink-0">
+                    <button onclick="loadTemplateData('standard')" class="w-full md:w-auto px-4 py-2 text-xs font-semibold text-brand-700 dark:text-brand-400 bg-brand-100/50 dark:bg-brand-950/50 hover:bg-brand-100 dark:hover:bg-brand-900/60 border border-brand-200/50 dark:border-brand-800/50 rounded-xl transition-all">
+                        <i class="fa-solid fa-rotate-left mr-1.5"></i> Reset Default Template
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two-Column Form and Output Engine -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Column 1: Configurator Form (Inputs) -->
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-100/50 dark:shadow-none overflow-hidden transition-all duration-200">
+                <div class="p-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders text-brand-500"></i>
+                        <span class="font-bold text-slate-900 dark:text-white">Instructional Parameters</span>
+                    </div>
+                    <span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Inputs</span>
+                </div>
+                
+                <div class="p-6 space-y-6">
+                    <!-- Dropdown: Targeted Audience -->
+                    <div class="group">
+                        <label for="targetAudience" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Targeted Audience <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <select id="targetAudience" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 appearance-none cursor-pointer">
+                                <option value="Community College Administrators & Deans">Community College Administrators & Deans</option>
+                                <option value="Career & Technical Education (CTE) Faculty & Program Chairs">Career & Technical Education (CTE) Faculty & Program Chairs</option>
+                                <option value="Local Business Owners & Industry Executives">Local Business Owners & Industry Executives</option>
+                                <option value="Workforce Development Professionals">Workforce Development Professionals</option>
+                                <option value="Instructional Designers">Instructional Designers</option>
+                                <option value="State Higher Education Board Officers">State Higher Education Board Officers</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="mt-1.5 text-xs text-slate-400 dark:text-slate-500">Tailors prompt vocabulary and strategic focus to this specific professional cohort.</p>
+                    </div>
+
+                    <!-- Lesson Title -->
+                    <div>
+                        <label for="lessonTitle" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Lesson Title <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="lessonTitle" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150">
+                    </div>
+
+                    <!-- Learning Objectives -->
+                    <div>
+                        <label for="learningObjectives" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Learning Objectives
+                        </label>
+                        <textarea id="learningObjectives" rows="3" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+
+                    <!-- Grid for Split Fields -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Key Terms -->
+                        <div>
+                            <label for="keyTerms" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                                Key Terms
+                            </label>
+                            <textarea id="keyTerms" rows="4" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                        </div>
+
+                        <!-- Key Concepts -->
+                        <div>
+                            <label for="keyConcepts" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                                Key Concepts
+                            </label>
+                            <textarea id="keyConcepts" rows="4" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Diagnostic Pre-Test -->
+                    <div>
+                        <label for="preTest" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Pre-Test Questions
+                        </label>
+                        <textarea id="preTest" rows="3" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+
+                    <!-- Core Content Description -->
+                    <div>
+                        <label for="coreContent" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Core BILT Content Overview
+                        </label>
+                        <textarea id="coreContent" rows="5" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+
+                    <!-- Analogies & Real-World Examples -->
+                    <div>
+                        <label for="analogies" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Analogies & Real-World Examples
+                        </label>
+                        <textarea id="analogies" rows="3" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+
+                    <!-- Lesson Summary -->
+                    <div>
+                        <label for="summary" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Summary & Takeaways
+                        </label>
+                        <textarea id="summary" rows="3" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+
+                    <!-- Review Quiz -->
+                    <div>
+                        <label for="reviewQuiz" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            Review Quiz / Knowledge Check
+                        </label>
+                        <textarea id="reviewQuiz" rows="3" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+
+                    <!-- ADA Checklist -->
+                    <div>
+                        <label for="adaChecklist" class="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
+                            ADA & Universal Design Checklist
+                        </label>
+                        <textarea id="adaChecklist" rows="3" class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all duration-150 font-sans"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Action Footer -->
+                <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                    <button onclick="generatePrompt()" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-brand-500/20 hover:shadow-brand-500/35 active:scale-[0.98] transition-all duration-150">
+                        <span>Assemble Mega-Prompt</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Column 2: Live Compiler / Output Prompt -->
+            <div class="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
+                <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[750px]">
+                    <!-- Output Panel Header -->
+                    <div class="p-6 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 block animate-pulse"></span>
+                            <span class="font-bold text-sm text-slate-200 tracking-wide font-sans">Prompt Output Terminal</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="copyToClipboard()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all duration-150 border border-slate-700 hover:text-white" title="Copy output prompt to clipboard">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copy</span>
+                            </button>
+                            <button onclick="downloadPrompt()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all duration-150 border border-slate-700 hover:text-white" title="Download prompt markup file">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Output Interactive Container -->
+                    <div class="p-6 flex-grow overflow-y-auto bg-slate-950 font-mono text-xs leading-relaxed space-y-4">
+                        <div id="noPromptState" class="h-full flex flex-col items-center justify-center text-center p-8 text-slate-500 space-y-4 font-sans">
+                            <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-600 text-2xl">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-300">No Prompt Assembled</h3>
+                                <p class="text-xs text-slate-500 max-w-xs mt-1">Configure your parameters on the left and click "Assemble Mega-Prompt" to compile your curriculum prompt package.</p>
+                            </div>
+                        </div>
+
+                        <!-- Generated Content Display Area -->
+                        <div id="promptOutputArea" class="hidden whitespace-pre-wrap select-all font-mono text-slate-300 selection:bg-brand-500/30 selection:text-white" tabindex="0"></div>
+                    </div>
+
+                    <!-- Output Footer Metadata -->
+                    <div class="px-6 py-4 bg-slate-900 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-500 font-sans">
+                        <span>Status: <strong class="text-emerald-500">Ready to Compile</strong></span>
+                        <span id="charCount">0 Characters</span>
+                    </div>
+                </div>
+
+                <!-- Secondary Helper Widget (BILT Guidelines Reminder) -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3 flex items-center">
+                        <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> BILT Integration Checklist
+                    </h3>
+                    <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2.5">
+                        <li class="flex items-start">
+                            <i class="fa-regular fa-square-check text-emerald-500 mt-0.5 mr-2 flex-shrink-0"></i>
+                            <span><strong>Leadership over Advice:</strong> Verify the prompt mandates interactive co-ownership rather than standard consulting boards.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-regular fa-square-check text-emerald-500 mt-0.5 mr-2 flex-shrink-0"></i>
+                            <span><strong>KSA Priority Cycle:</strong> Ensure references to structural mapping of Knowledge, Skills, and Abilities are dynamic.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-regular fa-square-check text-emerald-500 mt-0.5 mr-2 flex-shrink-0"></i>
+                            <span><strong>Pathways Alignment:</strong> Ensure standard terminology aligns with PathwaysToInnovation.org benchmarks.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Slide-in Custom Toast Alert Notification (Avoid alert() blocks) -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 transform translate-y-20 opacity-0 z-50 flex items-center space-x-3 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-xl shadow-2xl border border-slate-800 dark:border-slate-200 transition-all duration-300 pointer-events-none">
+        <span id="toastIconContainer" class="text-emerald-500 dark:text-emerald-600">
+            <i class="fa-solid fa-circle-check text-lg"></i>
+        </span>
+        <span id="toastMessage" class="text-xs font-bold font-sans">Prompt updated successfully!</span>
+    </div>
+
+    <!-- Script Engine -->
+    <script>
+        // Default BILT model values
+        const defaultBILTData = {
+            lessonTitle: "Introduction to the BILT (Business & Industry Leadership Team) Model",
+            learningObjectives: `1. Differentiate the foundational co-leadership paradigm of a BILT from standard, retrospective advisory boards.\n2. Analyze and detail the phases of the continuous BILT Annual cycle.\n3. Implement structured Knowledge, Skills, and Abilities (KSA) prioritization spreadsheets for strategic alignment.\n4. Design modern workforce curriculum maps referencing real-time employer guidance.`,
+            keyTerms: `- BILT Model: A highly structured, employer-led advisory framework pioneered by the National Science Foundation and Pathways to Innovation.\n- KSA Prioritization: The process where industry leaders vote annually on essential Knowledge, Skills, and Abilities.\n- Co-Leadership: Program governance split intentionally between educators and industry leaders.\n- Pathways to Innovation: The strategic initiative disseminating BILT protocols nationwide.`,
+            keyConcepts: `- Advisory boards act in an advisory capacity (retrospective, rubber-stamp reviews); BILTs lead proactively (proactive planning, direct curriculum integration).\n- The curriculum loop operates continuously to prevent technical skills gaps.\n- Shared metrics: educational success is aligned directly with student hire rates and workforce retention.`,
+            preTest: `1. Traditional advisory boards are primarily proactive or retrospective in nature?\n2. True or False: Industry leaders on a BILT vote directly on which specific technical skills should be elevated within a program.`,
+            coreContent: `The BILT model goes far beyond standard communication strategies. Backed by the National Science Foundation, it places local employers in co-leadership positions over educational program planning. Instead of merely rubber-stamping pre-packaged curricula during occasional annual meetings, the BILT members validate specific technical criteria continuously. Utilizing the structured annual cycle, they systematically evaluate workforce landscapes. Programs mapped using the Pathways to Innovation methodology maintain strong alignment with current workplace requirements and technical trends.`,
+            analogies: `Analogy: A traditional advisory board is like a restaurant focus group evaluating meals that have already been prepared and served. A BILT, however, acts as co-chefs—designing the menu, sourcing the ingredients, and determining quality standards before cooking even begins.`,
+            summary: `- Traditional committees advise; the BILT leads programs forward.\n- Continuous adjustment loop: the prioritization of KSAs directly adjusts classroom curricula.\n- High-impact industry co-ownership drives employer buy-in, ensuring students are hired immediately.`,
+            reviewQuiz: `1. Define the structural role of an industry lead in a BILT model. (Expected Answer: Co-leader who guides curriculum, rather than a passive advisor)\n2. How frequently should the technical KSA review cycle be updated? (Expected Answer: Annually, to match rapid workspace transformations)`,
+            adaChecklist: `- Screen reader friendly, semantic semantic outline formatting (using logical markdown headers).\n- Accessible video scripts and transcription frameworks for BILT content guides.\n- Contrast ratios complying with WCAG 2.1 Level AA specs.\n- All graphic cycles (such as the KSA priority circle) described using rich alternative text mappings.`
+        };
+
+        // Theme Storage & Setup
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeToggleUI(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeToggleUI(false);
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateThemeToggleUI(false);
+                showToast("Light Mode Activated", "sun");
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeToggleUI(true);
+                showToast("Dark Mode Activated", "moon");
+            }
+        }
+
+        function updateThemeToggleUI(isDark) {
+            const icon = document.getElementById('themeToggleIcon');
+            if (isDark) {
+                icon.className = 'fa-solid fa-sun text-lg text-amber-400';
+            } else {
+                icon.className = 'fa-solid fa-moon text-lg text-slate-600';
+            }
+        }
+
+        // Load content template
+        function loadTemplateData(type = 'standard') {
+            document.getElementById('lessonTitle').value = defaultBILTData.lessonTitle;
+            document.getElementById('learningObjectives').value = defaultBILTData.learningObjectives;
+            document.getElementById('keyTerms').value = defaultBILTData.keyTerms;
+            document.getElementById('keyConcepts').value = defaultBILTData.keyConcepts;
+            document.getElementById('preTest').value = defaultBILTData.preTest;
+            document.getElementById('coreContent').value = defaultBILTData.coreContent;
+            document.getElementById('analogies').value = defaultBILTData.analogies;
+            document.getElementById('summary').value = defaultBILTData.summary;
+            document.getElementById('reviewQuiz').value = defaultBILTData.reviewQuiz;
+            document.getElementById('adaChecklist').value = defaultBILTData.adaChecklist;
+            
+            // Auto update counts if visible
+            updateCount(0);
+        }
+
+        // Custom Toast Alert handler
+        function showToast(message, iconName = 'circle-check') {
+            const toast = document.getElementById('toastNotification');
+            const msgSpan = document.getElementById('toastMessage');
+            const iconSpan = document.getElementById('toastIconContainer');
+
+            // Icon select
+            let iconMarkup = `<i class="fa-solid fa-circle-check text-lg text-emerald-500"></i>`;
+            if (iconName === 'sun') {
+                iconMarkup = `<i class="fa-solid fa-sun text-lg text-amber-500"></i>`;
+            } else if (iconName === 'moon') {
+                iconMarkup = `<i class="fa-solid fa-moon text-lg text-indigo-400"></i>`;
+            } else if (iconName === 'copy') {
+                iconMarkup = `<i class="fa-regular fa-clipboard text-lg text-brand-500"></i>`;
+            } else if (iconName === 'download') {
+                iconMarkup = `<i class="fa-solid fa-file-arrow-down text-lg text-brand-500"></i>`;
+            }
+
+            iconSpan.innerHTML = iconMarkup;
+            msgSpan.textContent = message;
+
+            // Slide in
+            toast.className = toast.className.replace('translate-y-20 opacity-0 pointer-events-none', 'translate-y-0 opacity-100');
+            
+            // Slide out
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', 'translate-y-20 opacity-0 pointer-events-none');
+            }, 3000);
+        }
+
+        // Prompt compiler
+        function generatePrompt() {
+            const audience = document.getElementById('targetAudience').value;
+            const title = document.getElementById('lessonTitle').value.trim();
+            const objectives = document.getElementById('learningObjectives').value.trim();
+            const terms = document.getElementById('keyTerms').value.trim();
+            const concepts = document.getElementById('keyConcepts').value.trim();
+            const preTest = document.getElementById('preTest').value.trim();
+            const content = document.getElementById('coreContent').value.trim();
+            const analogies = document.getElementById('analogies').value.trim();
+            const summary = document.getElementById('summary').value.trim();
+            const quiz = document.getElementById('reviewQuiz').value.trim();
+            const ada = document.getElementById('adaChecklist').value.trim();
+
+            if (!title) {
+                showToast("Lesson Title is required!", "sun"); // Using available themes for warn colors
+                return;
+            }
+
+            // Creating structurally complete prompt schema targeting advanced LLMs
+            const assembledText = `Role: Expert Curriculum Developer & Instructional Designer specializing in workforce programs.
+Target Audience for Lesson: ${audience}
+
+Context/Reference Paradigm: Pathways to Innovation BILT Model (https://www.pathwaystoinnovation.org/the-bilt-model/)
+Key Philosophical Tenet to Enforce: "Advisory boards advise; BILTs lead."
+
+Please generate a comprehensive, highly engaging, and structured learning delivery framework using the precise instructional components detailed below:
+
+==================================================
+1. LESSON TITLE
+==================================================
+${title}
+
+==================================================
+2. LEARNING OBJECTIVES
+==================================================
+${objectives || 'None provided.'}
+
+==================================================
+3. KEY TERMINOLOGY
+==================================================
+${terms || 'None provided.'}
+
+==================================================
+4. CORE CONCEPTS
+==================================================
+${concepts || 'None provided.'}
+
+==================================================
+5. DIAGNOSTIC PRE-TEST
+==================================================
+${preTest || 'None provided.'}
+
+==================================================
+6. CURRICULUM CORE CONTENT
+==================================================
+${content || 'None provided.'}
+
+==================================================
+7. ANALOGIES & REAL-WORLD WORKPLACE EXAMPLES
+==================================================
+${analogies || 'None provided.'}
+
+==================================================
+8. KEY SUMMARIES & TAKEAWAYS
+==================================================
+${summary || 'None provided.'}
+
+==================================================
+9. KNOWLEDGE CHECK / REVIEW QUIZ
+==================================================
+${quiz || 'None provided.'}
+
+==================================================
+10. ADA COMPLIANCE & UNIVERSAL ACCESSIBILITY METRICS
+==================================================
+${ada || 'None provided.'}
+
+==================================================
+OUTPUT INSTRUCTIONS FOR THE SYSTEM:
+- Expand the core content into a detailed instructional outline customized for the professional context of: "${audience}".
+- Adopt a professional, persuasive tone highlighting how the co-leadership structure minimizes student skill gap issues.
+- Maintain logical, screen-reader compatible nested Markdown headers throughout.
+- Include interactive activities suggestions that map onto the educational cycles outlined.`;
+
+            // Display Compiled Output
+            const outputArea = document.getElementById('promptOutputArea');
+            const nullState = document.getElementById('noPromptState');
+
+            outputArea.textContent = assembledText;
+            outputArea.classList.remove('hidden');
+            nullState.classList.add('hidden');
+
+            updateCount(assembledText.length);
+            showToast("Mega-Prompt Compiled Successfully!");
+            
+            // Smooth scroll compilation panel into focus for mobile
+            if (window.innerWidth < 1024) {
+                outputArea.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function updateCount(length) {
+            const countSpan = document.getElementById('charCount');
+            countSpan.textContent = `${length.toLocaleString()} Characters`;
+        }
+
+        // Clipboard copying method compatible with embedded iframe environment
+        function copyToClipboard() {
+            const textToCopy = document.getElementById('promptOutputArea').textContent;
+            
+            if (!textToCopy || textToCopy.trim() === "") {
+                showToast("Please assemble the prompt first!");
+                return;
+            }
+
+            // Fallback strategy for iframe environments
+            const textarea = document.createElement("textarea");
+            textarea.value = textToCopy;
+            textarea.style.position = "fixed";  // Avoid scrolling to bottom
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("Copied to Clipboard!", "copy");
+                } else {
+                    showToast("Copy failed, please select & copy manually.");
+                }
+            } catch (err) {
+                console.error("Copy execution failed: ", err);
+                showToast("Copy restricted. Select text manually.");
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        // Download generated prompt as markdown file
+        function downloadPrompt() {
+            const textToCopy = document.getElementById('promptOutputArea').textContent;
+            if (!textToCopy) {
+                showToast("Please compile the prompt first!");
+                return;
+            }
+
+            const title = document.getElementById('lessonTitle').value.trim() || 'BILT-Prompt';
+            const cleanFilename = title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + "_prompt.txt";
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textToCopy));
+            element.setAttribute('download', cleanFilename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+
+            showToast("Downloading prompt file...", "download");
+        }
+
+        // Initialize Onload actions
+        window.onload = function() {
+            initTheme();
+            loadTemplateData('standard');
+        }
+    </script>
+</body>
+</html>
